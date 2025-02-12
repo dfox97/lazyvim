@@ -55,7 +55,8 @@ vim.g.mapleader = " "
 
 vim.g.snacks_animate = false
 vim.treesitter.language.register("angular", "angular.html")
-
+-- ignore order
+vim.g.lazyvim_check_order = false
 -- Set the filetype for TypeScript files
 vim.cmd([[
   autocmd BufNewFile,BufRead *.ts set filetype=typescript

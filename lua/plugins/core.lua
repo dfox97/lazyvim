@@ -24,7 +24,6 @@ return {
   },
   -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
   { import = "lazyvim.plugins.extras.lang.typescript" },
-
   {
     "nvim-treesitter/nvim-treesitter",
     -- use latest
@@ -75,7 +74,6 @@ return {
       },
     },
   },
-
   {
     "l3mon4d3/luasnip",
     config = function()
