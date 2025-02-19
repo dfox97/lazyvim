@@ -1,6 +1,23 @@
 return {
   "lewis6991/gitsigns.nvim",
   event = "LazyFile",
+  keys = {
+    { "]h", desc = "Next Hunk" },
+    { "[h", desc = "Prev Hunk" },
+    { "]H", desc = "Last Hunk" },
+    { "[H", desc = "First Hunk" },
+    { "<leader>ghs", desc = "Stage Hunk", mode = { "n", "v" } },
+    { "<leader>ghr", desc = "Reset Hunk", mode = { "n", "v" } },
+    { "<leader>ghS", desc = "Stage Buffer" },
+    { "<leader>ghu", desc = "Undo Stage Hunk" },
+    { "<leader>ghR", desc = "Reset Buffer" },
+    { "<leader>ghp", desc = "Preview Hunk Inline" },
+    { "<leader>ghb", desc = "Blame Line" },
+    { "<leader>ghB", desc = "Blame Buffer" },
+    { "<leader>ghd", desc = "Diff This" },
+    { "<leader>ghD", desc = "Diff This ~" },
+    { "ih", desc = "GitSigns Select Hunk", mode = { "o", "x" } },
+  },
   opts = {
     signs = {
       add = { text = "▎" },
