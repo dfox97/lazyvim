@@ -67,3 +67,17 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- map zo and zc to open and close folds
 vim.api.nvim_set_keymap("n", "zo", "za", { noremap = true, silent = true })
+--
+-- Angular Input signal replacement mappings
+vim.keymap.set(
+  "n",
+  "<leader>ri",
+  "<cmd>ReplaceInputSignals<CR>",
+  { noremap = true, silent = true, desc = "Replace all Input() signals" }
+)
+vim.keymap.set(
+  "v",
+  "<leader>ri",
+  "<cmd>ReplaceHighlightedInputSignal<CR>",
+  { noremap = true, silent = true, desc = "Replace selected Input() signals" }
+)
