@@ -7,13 +7,14 @@ return {
     opts = {
       provider = "claude", -- Recommend using Claude
       -- -- add any opts here
-      -- claude = {
-      --   endpoint = "https://api.anthropic.com",
-      --   model = "claude-3.5-sonnet",
-      --   timeout = 30000, -- Timeout in milliseconds
-      --   temperature = 0,
-      --   max_tokens = 4096,
-      -- },
+      claude = {
+        endpoint = "https://api.anthropic.com",
+        model = "claude-3-7-sonnet-20250219",
+        timeout = 30000, -- Timeout in milliseconds
+        temperature = 0,
+        max_tokens = 4500,
+        disable_tools = true, -- Disable tools for now (it's enabled by default) as it's causing rate-limit problems with Claude, see more here: https://github.com/yetone/avante.nvim/issues/1384
+      },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
