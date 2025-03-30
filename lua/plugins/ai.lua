@@ -5,16 +5,46 @@ return {
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
-      provider = "claude", -- Recommend using Claude
-      -- -- add any opts here
-      claude = {
-        endpoint = "https://api.anthropic.com",
-        model = "claude-3-7-sonnet-20250219",
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
-        max_tokens = 4500,
-        disable_tools = true, -- Disable tools for now (it's enabled by default) as it's causing rate-limit problems with Claude, see more here: https://github.com/yetone/avante.nvim/issues/1384
+      provider = "openrouter",
+      vendors = {
+        -- openrouter = {
+        --   __inherited_from = "openai",
+        --   endpoint = "https://openrouter.ai/api/v1",
+        --   api_key_name = "OPENROUTER_API_KEY",
+        --   model = "anthropic/claude-3.5-sonnet",
+        --   max_tokens = 8192,
+        -- },
+        openrouter = {
+          __inherited_from = "openai",
+          disable_tools = true,
+          endpoint = "https://openrouter.ai/api/v1",
+          api_key_name = "OPENROUTER_API_KEY",
+          model = "openai/o3-mini",
+          -- model = "anthropic/claude-3.7-sonnet",
+          -- model = "deepseek/deepseek-r1",
+          -- model = "google/gemini-2.0-flash-thinking-exp:free",
+          -- model = "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
+          max_tokens = 8192,
+        },
       },
+      --   openrouter_deepseek = {
+      --     __inherited_from = "openai",
+      --     endpoint = "https://openrouter.ai/api/v1",
+      --     api_key_name = "OPENROUTER_API_KEY",
+      --     model = "deepseek/deepseek-r1-zero:free",
+      --   },
+      -- },
+      --
+      -- provider = "claude", -- Recommend using Claude
+      --   -- -- add any opts here
+      --   claude = {
+      --     endpoint = "https://api.anthropic.com",
+      --     model = "claude-3-7-sonnet-20250219",
+      --     timeout = 30000, -- Timeout in milliseconds
+      --     temperature = 0,
+      --     max_tokens = 4500,
+      --     disable_tools = true, -- Disable tools for now (it's enabled by default) as it's causing rate-limit problems with Claude, see more here: https://github.com/yetone/avante.nvim/issues/1384
+      --   },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
@@ -52,42 +82,6 @@ return {
         },
         ft = { "markdown", "Avante" },
       },
-    },
-  },
-  {
-    "David-Kunz/gen.nvim",
-    opts = {
-      model = "llama3.1", -- The default model to use.
-      quit_map = "q", -- set keymap to close the response window
-      retry_map = "<c-r>", -- set keymap to re-send the current prompt
-      accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
-      host = "172.24.0.1", -- Windows host IP from WSL2 ip route | grep default | awk '{print $3}'
-      port = "11434", -- The port on which the Ollama service is listening.
-      display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
-      show_prompt = false, -- Shows the prompt submitted to Ollama. Can be true (3 lines) or "full".
-      show_model = false, -- Displays which model you are using at the beginning of your chat session.
-      no_auto_close = false, -- Never closes the window automatically.
-      file = false, -- Write the payload to a temporary file to keep the command short.
-      hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
-      init = function(options)
-        pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
-      end,
-      -- Function to initialize Ollama
-      command = function(options)
-        local body = { model = options.model, stream = true }
-        return "curl --silent --no-buffer -X POST http://"
-          .. options.host
-          .. ":"
-          .. options.port
-          .. "/api/chat -d $body"
-      end,
-      -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
-      -- This can also be a command string.
-      -- The executed command must return a JSON object with { response, context }
-      -- (context property is optional).
-      -- list_models = '<omitted lua function>', -- Retrieves a list of model names
-      result_filetype = "markdown", -- Configure filetype of the result buffer
-      debug = false, -- Prints errors and the command which is run.
     },
   },
 }
