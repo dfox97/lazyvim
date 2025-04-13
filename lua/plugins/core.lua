@@ -84,16 +84,16 @@ return {
       return {}
     end,
   },
-
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     build = ":Copilot auth",
+    event = "BufReadPost",
     opts = {
       suggestion = {
-        enabled = true,
+        enabled = not vim.g.ai_cmp,
         auto_trigger = false,
-        hide_during_completion = true,
+        hide_during_completion = vim.g.ai_cmp,
         debounce = 75,
         keymap = {
           accept = "<M-l>",
@@ -109,9 +109,17 @@ return {
         markdown = true,
         help = true,
       },
+      function()
+        LazyVim.cmp.actions.ai_accept = function()
+          if require("copilot.suggestion").is_visible() then
+            LazyVim.create_undo()
+            require("copilot.suggestion").accept()
+            return true
+          end
+        end
+      end,
     },
   },
-
   { "mbbill/undotree" },
   -- use mini.starter instead of alpha
   -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
