@@ -81,3 +81,9 @@ vim.keymap.set(
   "<cmd>ReplaceHighlightedInputSignal<CR>",
   { noremap = true, silent = true, desc = "Replace selected Input() signals" }
 )
+
+-- remove arrow keys binding
+vim.keymap.set("n", "<Up>", "<NOP>")
+vim.keymap.set("n", "<Down>", "<NOP>")
+vim.keymap.set("n", "<Left>", "<NOP>")
+vim.keymap.set("n", "<Right>", "<NOP>")

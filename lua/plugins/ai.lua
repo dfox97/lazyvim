@@ -19,7 +19,8 @@ return {
           disable_tools = true,
           endpoint = "https://openrouter.ai/api/v1",
           api_key_name = "OPENROUTER_API_KEY",
-          model = "openai/o3-mini",
+          model = "google/gemini-2.5-pro-preview-03-25",
+          -- model = "openai/o3-mini",
           -- model = "anthropic/claude-3.7-sonnet",
           -- model = "deepseek/deepseek-r1",
           -- model = "google/gemini-2.0-flash-thinking-exp:free",
@@ -27,14 +28,6 @@ return {
           max_tokens = 8192,
         },
       },
-      --   openrouter_deepseek = {
-      --     __inherited_from = "openai",
-      --     endpoint = "https://openrouter.ai/api/v1",
-      --     api_key_name = "OPENROUTER_API_KEY",
-      --     model = "deepseek/deepseek-r1-zero:free",
-      --   },
-      -- },
-      --
       -- provider = "claude", -- Recommend using Claude
       --   -- -- add any opts here
       --   claude = {
@@ -83,5 +76,23 @@ return {
         ft = { "markdown", "Avante" },
       },
     },
+  },
+  {
+    "ravitemer/mcphub.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
+    },
+    -- comment the following line to ensure hub will be ready at the earliest
+    cmd = "MCPHub", -- lazy load by default
+    build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+    -- uncomment this if you don't want mcp-hub to be available globally or can't use -g
+    -- build = "bundled_build.lua",  -- Use this and set use_bundled_binary = true in opts  (see Advanced configuration)
+    config = function()
+      require("mcphub").setup({
+        -- Required options
+        port = 3001, -- Port for MCP Hub server
+        config = vim.fn.expand("~/mcpservers.json"), -- Absolute path to config file
+      })
+    end,
   },
 }
