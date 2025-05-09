@@ -18,9 +18,9 @@ return {
         },
       }
 
-      opts.cmdline = {
-        enabled = true,
-      }
+      -- opts.cmdline = {
+      --   enabled = true,
+      -- }
       opts.completion = {
         ghost_text = {
           enabled = vim.g.ai_cmp,

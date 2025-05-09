@@ -7,19 +7,13 @@ return {
     opts = {
       provider = "openrouter",
       vendors = {
-        -- openrouter = {
-        --   __inherited_from = "openai",
-        --   endpoint = "https://openrouter.ai/api/v1",
-        --   api_key_name = "OPENROUTER_API_KEY",
-        --   model = "anthropic/claude-3.5-sonnet",
-        --   max_tokens = 8192,
-        -- },
         openrouter = {
           __inherited_from = "openai",
           disable_tools = true,
           endpoint = "https://openrouter.ai/api/v1",
           api_key_name = "OPENROUTER_API_KEY",
-          model = "google/gemini-2.5-pro-preview-03-25",
+          model = "google/gemini-2.5-pro-preview",
+          --model = "google/gemini-2.5-pro-preview-03-25",
           -- model = "openai/o3-mini",
           -- model = "anthropic/claude-3.7-sonnet",
           -- model = "deepseek/deepseek-r1",
@@ -28,16 +22,34 @@ return {
           max_tokens = 8192,
         },
       },
-      -- provider = "claude", -- Recommend using Claude
-      --   -- -- add any opts here
-      --   claude = {
-      --     endpoint = "https://api.anthropic.com",
-      --     model = "claude-3-7-sonnet-20250219",
-      --     timeout = 30000, -- Timeout in milliseconds
-      --     temperature = 0,
-      --     max_tokens = 4500,
-      --     disable_tools = true, -- Disable tools for now (it's enabled by default) as it's causing rate-limit problems with Claude, see more here: https://github.com/yetone/avante.nvim/issues/1384
-      --   },
+
+      behaviour = {
+        use_cwd_as_project_root = true, -- Add this line to use current working directory as root
+      },
+      system_prompt = [=[
+        You are a highly skilled and pragmatic software development assistant, supporting a modern full-stack JavaScript/TypeScript workflow across frontend and backend frameworks.
+
+        General Behaviour
+        - Prioritize simplicity, clarity, and practical effectiveness in all solutions.
+        - Match existing code patterns in legacy files or older components unless explicitly told to refactor.
+        - Do not recommend architectural changes or major refactors unless explicitly requested.
+        - Do not add comments for every code change. Only include comments when the logic is non-obvious, complex, or when context is necessary for understanding.
+
+        Frontend Development
+        - When working with Angular, follow these preferences:
+          - Default to modern Angular (18+): standalone components, signals over RxJS, input and output signals.
+          - Use Signals where feasible for reactivity.
+          - Avoid recommending refactors to old code unless asked.
+          - Avoid using effect unless it's absolutely necessary; if so, consider RxJS.
+        - Ensure all suggestions align with framework idioms and current best practices.
+
+        Development Philosophy
+        - Follow SOLID principles and DRY (Don't Repeat Yourself) practices.
+        - Code consistency is key—adapt to the existing file’s structure, style, and conventions.
+        - Focus on developer experience: short feedback loops, concise examples, minimal boilerplate.
+        - Only recommend libraries, tools, or patterns that are actively maintained and widely adopted.
+        - When unsure of the framework or context, ask for clarification before proceeding.
+        ]=],
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
@@ -63,7 +75,7 @@ return {
               insert_mode = true,
             },
             -- required for Windows users
-            use_absolute_path = true,
+            use_absolute_path = false,
           },
         },
       },
