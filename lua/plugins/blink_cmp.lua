@@ -1,8 +1,12 @@
 return {
   {
     "saghen/blink.cmp",
+    version = "v1.2.0",
     optional = true,
-    dependencies = { "giuxtaposition/blink-cmp-copilot" },
+    dependencies = {
+      "giuxtaposition/blink-cmp-copilot",
+      "rafamadriz/friendly-snippets",
+    },
 
     opts = function(_, opts)
       opts.sources = {
@@ -32,7 +36,7 @@ return {
       }
 
       opts.keymap = {
-        preset = "none", --enter if i want to use this.
+        preset = "super-tab", --enter if i want to use this.
         ["<Tab>"] = { "select_and_accept" },
       }
       opts.appearance = opts.appearance or {}
