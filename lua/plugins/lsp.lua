@@ -31,6 +31,25 @@ return {
             },
           },
         },
+        -- Add OmniSharp server here
+        omnisharp = {
+          cmd = {
+            vim.fn.stdpath("data") .. "/mason/bin/OmniSharp",
+            "--languageserver",
+            "--hostPID",
+            tostring(vim.fn.getpid()),
+          },
+          handlers = {
+            ["textDocument/publishDiagnostics"] = function() end, -- Disable diagnostics
+          },
+          -- If you need specific configuration for OmniSharp, add it here:
+          -- omnisharp_config = {
+          --   FormattingOptions = {
+          --     EnableEditorConfigSupport = true,
+          --     IncludeInitialNewline = false,
+          --   },
+          -- },
+        },
       },
       setup = {
         html = function(_, opts)

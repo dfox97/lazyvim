@@ -44,6 +44,7 @@ return {
         "regex",
         "tsx",
         "typescript",
+        "c_sharp",
         "vim",
         "yaml",
         "scss",
@@ -159,6 +160,8 @@ return {
   --   end,
   -- },
   --
+  { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
+
   { "mbbill/undotree" },
   -- use mini.starter instead of alpha
   -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
