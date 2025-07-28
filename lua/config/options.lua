@@ -27,8 +27,6 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 
-vim.opt.colorcolumn = "120"
-
 -- Allow copy and paste from clipboard
 vim.opt.clipboard = "unnamedplus"
 

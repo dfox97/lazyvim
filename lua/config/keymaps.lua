@@ -82,6 +82,32 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Replace selected Input() signals" }
 )
 
+-- change copilot ghost text colour to vscode style
+vim.api.nvim_set_hl(0, "CopilotSuggestion", {
+  fg = "#928374", -- match comment
+  italic = true,
+  blend = 35, -- faded
+})
+
+vim.keymap.set("i", "<C-c>", function()
+  -- Exit insert mode like <Esc>
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+  -- Manually dismiss Copilot suggestion
+  local ok, suggestion = pcall(require, "copilot.suggestion")
+  if ok and suggestion and suggestion.is_visible() then
+    suggestion.dismiss()
+  end
+end, { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+  callback = function()
+    local ok, suggestion = pcall(require, "copilot.suggestion")
+    if ok and suggestion then
+      suggestion.dismiss()
+    end
+  end,
+})
+
 -- remove arrow keys binding
 vim.keymap.set("n", "<Up>", "<NOP>")
 vim.keymap.set("n", "<Down>", "<NOP>")
