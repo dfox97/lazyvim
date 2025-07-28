@@ -1,7 +1,44 @@
 return {
   {
+
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    event = "BufReadPost",
+    opts = {
+      suggestion = {
+        enabled = not vim.g.ai_cmp,
+        auto_trigger = false,
+        hide_during_completion = vim.g.ai_cmp,
+        debounce = 75,
+        keymap = {
+          accept = "<M-l>",
+          accept_word = false,
+          accept_line = false,
+          next = "<M-]>",
+          prev = "<M-[>",
+          dismiss = "<C-]>",
+        },
+      },
+      panel = { enabled = false },
+      filetypes = {
+        markdown = true,
+        help = true,
+      },
+      function()
+        LazyVim.cmp.actions.ai_accept = function()
+          if require("copilot.suggestion").is_visible() then
+            LazyVim.create_undo()
+            require("copilot.suggestion").accept()
+            return true
+          end
+        end
+      end,
+    },
+  },
+  {
     "saghen/blink.cmp",
-    version = "v1.2.0",
+    version = "1.*",
     optional = true,
     dependencies = {
       "giuxtaposition/blink-cmp-copilot",
