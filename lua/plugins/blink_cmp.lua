@@ -3,12 +3,12 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     build = ":Copilot auth",
-    event = "InsertEnter",
+    event = "BufReadPost",
     opts = {
       suggestion = {
         enabled = true,
         auto_trigger = true,
-        debounce = 75,
+        debounce = 35,
         keymap = {
           accept = "<Tab>", -- Accept suggestion (handled carefully below)
           next = "<M-]>",

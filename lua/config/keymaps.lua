@@ -82,11 +82,9 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Replace selected Input() signals" }
 )
 
--- change copilot ghost text colour to vscode style
 vim.api.nvim_set_hl(0, "CopilotSuggestion", {
   fg = "#928374", -- match comment
   italic = true,
-  blend = 35, -- faded
 })
 
 vim.keymap.set("i", "<C-c>", function()
@@ -108,6 +106,21 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "BlinkCmpMenuOpen",
+  callback = function()
+    --require("copilot.suggestion").dismiss()
+    vim.b.copilot_suggestion_hidden = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "BlinkCmpMenuClose",
+  callback = function()
+    vim.b.copilot_suggestion_hidden = false
+  end,
+})
+--
 -- remove arrow keys binding
 vim.keymap.set("n", "<Up>", "<NOP>")
 vim.keymap.set("n", "<Down>", "<NOP>")
