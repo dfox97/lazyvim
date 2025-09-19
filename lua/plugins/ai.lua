@@ -50,7 +50,7 @@ return {
               },
               schema = {
                 model = {
-                  default = "google/gemini-2.5-flash",
+                  default = "x-ai/grok-code-fast-1",
                 },
               },
             })
@@ -104,22 +104,6 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "ravitemer/codecompanion-history.nvim",
-      --   {
-      --     "saghen/blink.cmp",
-      --     lazy = false,
-      --     version = "*",
-      --     opts = {
-      --       keymap = {
-      --         preset = "enter",
-      --         ["<S-Tab>"] = { "select_prev", "fallback" },
-      --         ["<Tab>"] = { "select_next", "fallback" },
-      --       },
-      --       cmdline = { sources = { "cmdline" } },
-      --       sources = {
-      --         default = { "lsp", "path", "buffer", "codecompanion" },
-      --       },
-      --     },
-      --   },
     },
   },
 }

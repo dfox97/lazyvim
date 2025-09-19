@@ -1,20 +1,16 @@
 return {
-  -- {
-  --   "folke/trouble.nvim",
-  --   -- opts will be merged with the parent spec
-  --   opts = { use_diagnostic_signs = true },
-  -- },
   {
-    "gmr458/vscode_modern_theme.nvim",
+    "Mofiqul/vscode.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("vscode_modern").setup({
-        cursorline = true,
-        transparent_background = false,
-        nvim_tree_darker = true,
+      require("vscode").setup({
+        -- Enable transparent background
+        transparent = false,
+        -- Enable italic comments
+        italic_comments = true,
       })
-      vim.cmd.colorscheme("vscode_modern")
+      vim.cmd.colorscheme("vscode")
       vim.cmd([[
       highlight GitSignsAdd guifg=#00ff00 ctermfg=green
       highlight GitSignsDelete guifg=#ff0000 ctermfg=red
@@ -22,11 +18,14 @@ return {
       ]])
     end,
   },
+
   -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
   { import = "lazyvim.plugins.extras.lang.typescript" },
   {
     "nvim-treesitter/nvim-treesitter",
-    -- use latest
+    branch = "master",
+    lazy = false,
+    build = ":TSUpdate",
     version = false,
     opts = {
       ensure_installed = {
@@ -40,13 +39,11 @@ return {
         "markdown",
         "markdown_inline",
         "python",
-        "query",
         "regex",
         "tsx",
         "typescript",
         "c_sharp",
         "vim",
-        "yaml",
         "scss",
       },
     },
@@ -67,7 +64,7 @@ return {
   },
   -- add any tools you want to have installed below
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
@@ -85,9 +82,6 @@ return {
       return {}
     end,
   },
-
-  --
-  { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
 
   { "mbbill/undotree" },
   -- use mini.starter instead of alpha

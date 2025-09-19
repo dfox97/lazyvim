@@ -55,25 +55,6 @@ vim.g.snacks_animate = false
 vim.treesitter.language.register("angular", "angular.html")
 -- ignore order
 vim.g.lazyvim_check_order = false
--- Set the filetype for TypeScript files
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.ts set filetype=typescript
-]])
-
--- Set the filetype for HTML files
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.html set filetype=html
-]])
-
--- Set the filetype for CSS files
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.css set filetype=css
-]])
-
--- Set the filetype for Lua files
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.lua set filetype=lua
-]])
 
 -- Set filetype for njk files
 vim.cmd([[
