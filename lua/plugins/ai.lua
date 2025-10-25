@@ -50,7 +50,7 @@ return {
               },
               schema = {
                 model = {
-                  default = "x-ai/grok-code-fast-1",
+                  default = "google/gemini-2.5-flash",
                 },
               },
             })

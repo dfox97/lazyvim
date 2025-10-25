@@ -10,7 +10,7 @@ return {
         graphql = { "prettierd", "prettier" },
         css = { "stylelint", "prettierd", "prettier" },
         htmlangular = { "eslint" },
-        json = { "prettierd", "prettier" },
+        -- json = { "prettierd", "prettier" },
         lua = { "stylua", "prettierd" },
         markdown = { "prettierd", "prettier" },
         scss = { "stylelint", "prettierd", "prettier" },
