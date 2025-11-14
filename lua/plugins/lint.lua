@@ -16,6 +16,7 @@ return {
         scss = { "stylelint", "prettierd", "prettier" },
         typescript = { "eslint" },
         typescriptreact = { "eslint" },
+        astro = { "eslint" },
       },
     },
   },

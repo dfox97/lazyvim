@@ -18,7 +18,7 @@ return {
       ]])
     end,
   },
-
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
   { import = "lazyvim.plugins.extras.lang.typescript" },
   {
@@ -45,6 +45,7 @@ return {
         "c_sharp",
         "vim",
         "scss",
+        "astro",
       },
     },
     config = function(_, opts)
