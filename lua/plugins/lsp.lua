@@ -13,6 +13,7 @@ return {
     ---@class PluginLspOpts
     opts = {
       inlay_hints = { enabled = false },
+
       ---@type lspconfig.options
       servers = {
         -- OmniSharp (custom, not handled by LazyVim)
@@ -27,19 +28,50 @@ return {
             ["textDocument/publishDiagnostics"] = function() end, -- Disable diagnostics
           },
         },
+
+        -- ✅ GitHub Copilot LSP
+        copilot = {
+          enabled = true,
+          cmd = { "copilot-lsp" },
+          filetypes = {
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "lua",
+            "python",
+            "go",
+            "rust",
+            "markdown",
+            "*",
+          },
+        },
       },
+
       setup = {
+        -- Ensure Copilot starts only if user enables it:
+        copilot = function(server, opts)
+          return not vim.lsp.enable or vim.lsp.enable("copilot") ~= false
+        end,
+
         -- Custom html setup (LazyVim has html extra, but keep if specific)
         html = function(_, opts)
           return false
         end,
+
         -- Custom marksman (LazyVim default might suffice, adjust if needed)
         marksman = function(_, opts)
           opts.filetypes = { "md", "markdown", "mdx", "agx" }
         end,
+
         -- ESLint custom filetypes (LazyVim handles eslint, this overrides minimally)
         eslint = function(_, opts)
-          opts.filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
+          opts.filetypes = {
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+          }
         end,
       },
     },
