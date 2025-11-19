@@ -5,16 +5,32 @@ return {
     priority = 1000,
     config = function()
       require("vscode").setup({
-        -- Enable transparent background
         transparent = false,
-        -- Enable italic comments
         italic_comments = true,
       })
+
       vim.cmd.colorscheme("vscode")
+
+      -- GitSigns overrides
       vim.cmd([[
-      highlight GitSignsAdd guifg=#00ff00 ctermfg=green
-      highlight GitSignsDelete guifg=#ff0000 ctermfg=red
-      highlight DiffDelete ctermbg=red guibg=#ff6d6d
+        highlight GitSignsAdd guifg=#00ff00 guibg=#003300
+        highlight GitSignsChange guifg=#ffff00 guibg=#333300
+        highlight GitSignsDelete guifg=#ff0000 guibg=#330000
+        highlight GitSignsChangeDelete guifg=#ff00ff guibg=#330033
+        highlight GitSignsTopDelete guifg=#ff5555 guibg=#330000
+      ]])
+
+      -- ================================
+      -- VS Code Modern diff highlight overrides (used by Sidekick NES)
+      -- ================================
+      vim.cmd([[
+      highlight SidekickDiffDelete guibg=#422727 guifg=#fca5a5    " dark red background, soft red text
+      highlight SidekickDiffAdd guibg=#1e3832 guifg=#a7f3d0       " dark green background, soft green text
+      highlight SidekickDiffContext guibg=NONE guifg=NONE         " unchanged lines fully normal
+
+      highlight SidekickSignAdd guifg=#10b981     " green
+      highlight SidekickSignDelete guifg=#ef4444  " red
+      highlight SidekickSignChange guifg=#3b82f6  " blue
       ]])
     end,
   },

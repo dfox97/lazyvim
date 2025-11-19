@@ -14,26 +14,29 @@ return {
     { "<leader>ghp", desc = "Preview Hunk Inline" },
     { "<leader>ghb", desc = "Blame Line" },
     { "<leader>ghB", desc = "Blame Buffer" },
-    { "<leader>ghd", desc = "Diff This" },
-    { "<leader>ghD", desc = "Diff This ~" },
+    { "<leader>Gd", desc = "Diff This vs dev" }, -- new keybinding
     { "ih", desc = "GitSigns Select Hunk", mode = { "o", "x" } },
   },
   opts = {
     signs = {
       add = { text = "▎" },
       change = { text = "▎" },
-      delete = { text = "" },
-      topdelete = { text = "" },
-      changedelete = { text = "▎" },
-      untracked = { text = "▎" },
+      delete = { text = "_" },
+      topdelete = { text = "‾" },
+      changedelete = { text = "~" },
+      untracked = { text = "┆" },
     },
     signs_staged = {
       add = { text = "▎" },
       change = { text = "▎" },
-      delete = { text = "" },
-      topdelete = { text = "" },
-      changedelete = { text = "▎" },
+      delete = { text = "_" },
+      topdelete = { text = "‾" },
+      changedelete = { text = "~" },
+      untracked = { text = "┆" },
     },
+
+    word_diff = true, -- Toggle with `:Gitsigns toggle_word_diff`
+    current_line_blame = true,
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
 
@@ -41,7 +44,7 @@ return {
         vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
       end
 
-      -- stylua: ignore start
+      -- Hunk navigation
       map("n", "]h", function()
         if vim.wo.diff then
           vim.cmd.normal({ "]c", bang = true })
@@ -56,18 +59,41 @@ return {
           gs.nav_hunk("prev")
         end
       end, "Prev Hunk")
-      map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
-      map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
+      map("n", "]H", function()
+        gs.nav_hunk("last")
+      end, "Last Hunk")
+      map("n", "[H", function()
+        gs.nav_hunk("first")
+      end, "First Hunk")
+
+      -- Hunk operations
       map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
       map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
       map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
       map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
       map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
       map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
-      map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-      map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
+      map("n", "<leader>ghb", function()
+        gs.blame_line({ full = true })
+      end, "Blame Line")
+      map("n", "<leader>ghB", function()
+        gs.blame()
+      end, "Blame Buffer")
+
+      -- Diff against HEAD
       map("n", "<leader>ghd", gs.diffthis, "Diff This")
-      map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+
+      -- Diff against last commit
+      map("n", "<leader>ghD", function()
+        gs.diffthis("~")
+      end, "Diff This ~")
+
+      -- Diff against 'dev' branch
+      map("n", "Gd", function()
+        gs.diffthis("dev")
+      end, "Diff This vs dev")
+
+      -- Select hunk in visual mode
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
     end,
   },

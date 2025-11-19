@@ -11,27 +11,27 @@ return {
   {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
-    opts = {
-      inlay_hints = { enabled = false },
+    opts = function(_, opts)
+      -- Ensure opts.servers exists
+      opts.servers = opts.servers or {}
 
-      ---@type lspconfig.options
-      servers = {
-        -- OmniSharp (custom, not handled by LazyVim)
-        omnisharp = {
-          cmd = {
-            vim.fn.stdpath("data") .. "/mason/bin/OmniSharp",
-            "--languageserver",
-            "--hostPID",
-            tostring(vim.fn.getpid()),
-          },
-          handlers = {
-            ["textDocument/publishDiagnostics"] = function() end, -- Disable diagnostics
-          },
+      -- OmniSharp (custom, not handled by LazyVim)
+      opts.servers.omnisharp = {
+        cmd = {
+          vim.fn.stdpath("data") .. "/mason/bin/OmniSharp",
+          "--languageserver",
+          "--hostPID",
+          tostring(vim.fn.getpid()),
         },
+        handlers = {
+          ["textDocument/publishDiagnostics"] = function() end, -- Disable diagnostics
+        },
+      }
 
-        -- ✅ GitHub Copilot LSP
-        copilot = {
-          enabled = true,
+      -- Copilot (official LazyVim style)
+      local sk = LazyVim.opts("sidekick.nvim") ---@type sidekick.Config|{}
+      if vim.tbl_get(sk, "nes", "enabled") ~= false then
+        opts.servers.copilot = {
           cmd = { "copilot-lsp" },
           filetypes = {
             "javascript",
@@ -45,36 +45,30 @@ return {
             "markdown",
             "*",
           },
-        },
-      },
+        }
+      end
 
-      setup = {
-        -- Ensure Copilot starts only if user enables it:
-        copilot = function(server, opts)
-          return not vim.lsp.enable or vim.lsp.enable("copilot") ~= false
-        end,
+      -- Custom setup overrides
+      opts.setup = opts.setup or {}
 
-        -- Custom html setup (LazyVim has html extra, but keep if specific)
-        html = function(_, opts)
-          return false
-        end,
+      -- Disable default HTML setup if needed
+      opts.setup.html = function(_, _)
+        return false
+      end
 
-        -- Custom marksman (LazyVim default might suffice, adjust if needed)
-        marksman = function(_, opts)
-          opts.filetypes = { "md", "markdown", "mdx", "agx" }
-        end,
+      -- Marksman custom filetypes
+      opts.setup.marksman = function(_, opts)
+        opts.filetypes = { "md", "markdown", "mdx", "agx" }
+      end
 
-        -- ESLint custom filetypes (LazyVim handles eslint, this overrides minimally)
-        eslint = function(_, opts)
-          opts.filetypes = {
-            "javascript",
-            "javascriptreact",
-            "typescript",
-            "typescriptreact",
-          }
-        end,
-      },
-    },
+      -- ESLint custom filetypes
+      opts.setup.eslint = function(_, opts)
+        opts.filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
+      end
+
+      -- Disable inlay hints globally
+      opts.inlay_hints = { enabled = false }
+    end,
   },
 
   -- Your custom typescript-tools (kept as-is, disable LazyVim typescript extra if using)
