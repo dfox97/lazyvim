@@ -99,7 +99,14 @@ return {
       return {}
     end,
   },
-
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        numbers = "ordinal", -- 1, 2, 3, ...
+      },
+    },
+  },
   { "mbbill/undotree" },
   -- use mini.starter instead of alpha
   -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
