@@ -1,5 +1,8 @@
 return {
   {
+    "sainnhe/everforest",
+  },
+  {
     "Mofiqul/vscode.nvim",
     lazy = false,
     priority = 1000,
