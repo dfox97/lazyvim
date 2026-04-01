@@ -28,26 +28,6 @@ return {
         },
       }
 
-      -- Copilot (official LazyVim style)
-      local sk = LazyVim.opts("sidekick.nvim") ---@type sidekick.Config|{}
-      if vim.tbl_get(sk, "nes", "enabled") ~= false then
-        opts.servers.copilot = {
-          cmd = { "copilot-lsp" },
-          filetypes = {
-            "javascript",
-            "javascriptreact",
-            "typescript",
-            "typescriptreact",
-            "lua",
-            "python",
-            "go",
-            "rust",
-            "markdown",
-            "*",
-          },
-        }
-      end
-
       -- Custom setup overrides
       opts.setup = opts.setup or {}
 
