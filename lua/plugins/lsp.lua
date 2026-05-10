@@ -1,6 +1,4 @@
 return {
-  { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
-  --
   -- Enable LazyVim angular extra (includes angularls config similar to your manual one)
   { import = "lazyvim.plugins.extras.lang.angular" },
 
@@ -15,18 +13,8 @@ return {
       -- Ensure opts.servers exists
       opts.servers = opts.servers or {}
 
-      -- OmniSharp (custom, not handled by LazyVim)
-      opts.servers.omnisharp = {
-        cmd = {
-          vim.fn.stdpath("data") .. "/mason/bin/OmniSharp",
-          "--languageserver",
-          "--hostPID",
-          tostring(vim.fn.getpid()),
-        },
-        handlers = {
-          ["textDocument/publishDiagnostics"] = function() end, -- Disable diagnostics
-        },
-      }
+      -- NOTE: OmniSharp removed - using Roslyn instead (see roslyn.lua)
+      -- Roslyn is Microsoft's official C# LSP with better performance and Razor support
 
       -- Custom setup overrides
       opts.setup = opts.setup or {}
@@ -46,7 +34,7 @@ return {
         opts.filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
       end
 
-      -- Disable inlay hints globally
+      -- Disable inlay hints globally (Roslyn has its own inlay hints config)
       opts.inlay_hints = { enabled = false }
     end,
   },

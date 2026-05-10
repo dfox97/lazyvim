@@ -69,10 +69,17 @@ return {
     },
     config = function(_, opts)
       require("nvim-treesitter.install").prefer_git = true
-      require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter").setup(opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "angular", "scss" })
+        vim.list_extend(opts.ensure_installed, { "angular", "scss", "razor" })
       end
+      -- Register Razor filetypes
+      vim.filetype.add({
+        extension = {
+          razor = "razor",
+          cshtml = "razor",
+        },
+      })
       vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         pattern = { "*.component.html", "*.container.html" },
         callback = function()
@@ -86,9 +93,16 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
+      registries = {
+        "github:mason-org/mason-registry",
+        "github:crashdummyy/mason-registry",
+      },
       ensure_installed = {
         "stylua",
         "nxls",
+        "roslyn",
+        "rzls",
+        "csharpier",
       },
     },
   },

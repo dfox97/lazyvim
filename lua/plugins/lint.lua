@@ -17,6 +17,7 @@ return {
         typescript = { "eslint" },
         typescriptreact = { "eslint" },
         astro = { "eslint" },
+        cs = { "csharpier" },
       },
     },
   },
