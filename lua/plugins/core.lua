@@ -43,6 +43,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "master",
+    pin = true,
     lazy = false,
     build = ":TSUpdate",
     version = false,
