@@ -29,21 +29,23 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Code Action (Quickfix)" }
 )
 
+-- Native Super-Tab completion: start/cycle LSP completion with Tab and move
+-- backwards with Shift-Tab. Outside completion it behaves as a normal tab.
+local function super_tab(direction)
+  return function()
+    if vim.fn.pumvisible() == 1 then
+      return direction == 1 and "<C-n>" or "<C-p>"
+    end
+    if vim.bo.omnifunc ~= "" then
+      return direction == 1 and "<C-x><C-o>" or "<S-Tab>"
+    end
+    return direction == 1 and "<Tab>" or "<S-Tab>"
+  end
+end
+
+vim.keymap.set("i", "<Tab>", super_tab(1), { expr = true, desc = "Next Completion" })
+vim.keymap.set("i", "<S-Tab>", super_tab(-1), { expr = true, desc = "Previous Completion" })
+
 -- map zo and zc to open and close folds
 vim.keymap.set("n", "zo", "za", { noremap = true, silent = true })
---
--- Angular Input signal replacement mappings
-vim.keymap.set(
-  "n",
-  "<leader>ri",
-  "<cmd>ReplaceInputSignals<CR>",
-  { noremap = true, silent = true, desc = "Replace all Input() signals" }
-)
-vim.keymap.set(
-  "v",
-  "<leader>ri",
-  "<cmd>ReplaceHighlightedInputSignal<CR>",
-  { noremap = true, silent = true, desc = "Replace selected Input() signals" }
-)
-
 vim.keymap.set("i", "<C-c>", "<Esc>", { noremap = true, silent = true })

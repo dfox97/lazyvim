@@ -19,7 +19,6 @@ return {
         highlight GitSignsChangeDelete guifg=#ff00ff guibg=#330033
         highlight GitSignsTopDelete guifg=#ff5555 guibg=#330000
       ]])
-
     end,
   },
   -- LSP, completion, and formatting are configured by LazyVim.

@@ -17,10 +17,8 @@ vim.opt.autoindent = true
 vim.opt.wrap = false
 
 vim.opt.hlsearch = true
-vim.opt.incsearch = true
 
 vim.opt.showmatch = true
-vim.opt.laststatus = 2 -- always show statusline
 
 vim.opt.termguicolors = true
 
@@ -36,17 +34,17 @@ vim.opt.showcmd = true
 vim.opt.cmdheight = 0
 
 -- Search
-vim.o.incsearch = true -- starts searching as soon as typing, without enter needed
-vim.o.ignorecase = true -- ignore letter case when searching
-vim.o.smartcase = true -- case insentive unless capitals used in searcher
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- make diffsplit vertically
 vim.opt.diffopt = "vertical"
 
 vim.opt.updatetime = 50
--- views can only be fully collapsed with the global statusline
+-- Views can only be fully collapsed with the global statusline.
 vim.opt.laststatus = 3
--- Se t cursorline
+-- Set cursorline.
 vim.opt.cursorline = true
 
 -- Use Neovim's built-in LSP completion UI instead of a completion plugin.
