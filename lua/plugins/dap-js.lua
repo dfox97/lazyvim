@@ -60,13 +60,6 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      opts = {},
-    },
-  },
-  {
-    "rcarriga/nvim-dap-ui",
     dependencies = { "nvim-neotest/nvim-nio" },
   -- stylua: ignore
   keys = {

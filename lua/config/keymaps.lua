@@ -29,26 +29,6 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Code Action (Quickfix)" }
 )
 
--- add keybinds for typescript tooling auto fix all
-vim.keymap.set("n", "<leader>cA", "<cmd>TSToolsFixAll<cr>", { noremap = true, silent = true, desc = "Fix all" })
-
-vim.keymap.set(
-  "n",
-  "<leader>cr",
-  "<cmd>TSToolsRemoveUnusedImports<CR>",
-  { noremap = true, silent = true, desc = "Rename" }
-)
-
-vim.keymap.set(
-  "n",
-  "<leader>ci",
-  "<cmd>TSToolsAddMissingImports<CR>",
-  { noremap = true, silent = true, desc = "Add missing imports" }
-)
-
--- undotree
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-
 -- map zo and zc to open and close folds
 vim.keymap.set("n", "zo", "za", { noremap = true, silent = true })
 --
@@ -66,41 +46,4 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Replace selected Input() signals" }
 )
 
-vim.api.nvim_set_hl(0, "CopilotSuggestion", {
-  fg = "#928374", -- match comment
-  italic = true,
-})
-
-vim.keymap.set("i", "<C-c>", function()
-  -- Exit insert mode like <Esc>
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-  -- Manually dismiss Copilot suggestion
-  local ok, suggestion = pcall(require, "copilot.suggestion")
-  if ok and suggestion and suggestion.is_visible() then
-    suggestion.dismiss()
-  end
-end, { noremap = true, silent = true })
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-  callback = function()
-    local ok, suggestion = pcall(require, "copilot.suggestion")
-    if ok and suggestion then
-      suggestion.dismiss()
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "BlinkCmpMenuOpen",
-  callback = function()
-    --require("copilot.suggestion").dismiss()
-    vim.b.copilot_suggestion_hidden = true
-  end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "BlinkCmpMenuClose",
-  callback = function()
-    vim.b.copilot_suggestion_hidden = false
-  end,
-})
+vim.keymap.set("i", "<C-c>", "<Esc>", { noremap = true, silent = true })

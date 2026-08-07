@@ -49,6 +49,10 @@ vim.opt.laststatus = 3
 -- Se t cursorline
 vim.opt.cursorline = true
 
+-- Use Neovim's built-in LSP completion UI instead of a completion plugin.
+vim.opt.completeopt = { "menu", "menuone", "noinsert", "popup" }
+vim.opt.autocomplete = true
+
 vim.g.mapleader = " "
 
 vim.g.snacks_animate = false
