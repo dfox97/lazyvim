@@ -48,7 +48,6 @@ vim.opt.updatetime = 50
 vim.opt.laststatus = 3
 -- Se t cursorline
 vim.opt.cursorline = true
-
 vim.g.mapleader = " "
 
 vim.g.snacks_animate = false

@@ -1,28 +1,5 @@
 return {
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    build = ":Copilot auth",
-    event = "BufReadPost",
-    opts = {
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 35,
-        keymap = {
-          accept = "<Tab>", -- Accept suggestion (handled carefully below)
-          next = "<M-]>",
-          prev = "<M-[>",
-          dismiss = "<C-]>",
-        },
-      },
-      panel = { enabled = false }, -- Optional
-    },
-    config = function(_, opts)
-      require("copilot").setup(opts)
-    end,
-  },
-  {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
